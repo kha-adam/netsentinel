@@ -1,5 +1,4 @@
 from collections import deque
-from scapy.all import TCP
 import time
 import threading
 

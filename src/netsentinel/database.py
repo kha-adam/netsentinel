@@ -3,9 +3,10 @@ import json
 
 class Database:
     def __init__(self, path="netsentinel.db"):
-        self.connection = sqlite3.connect(path)
-
-        self.connection.execute("""
+        # self.connection = sqlite3.connect(path)
+        self.path = path
+        connection = sqlite3.connect(self.path)
+        connection.execute("""
             CREATE TABLE IF NOT EXISTS alerts (
                 id INTEGER PRIMARY KEY,
                 timestamp REAL NOT NULL,
@@ -16,10 +17,12 @@ class Database:
             )
         """)
 
-        self.connection.commit()
+        connection.commit()
+        connection.close()
 
     def save_alert(self, alert):
-        self.connection.execute("""
+        connection = sqlite3.connect(self.path)
+        connection.execute("""
             INSERT INTO alerts (
                 timestamp,
                 type,
@@ -36,10 +39,12 @@ class Database:
             json.dumps(alert["details"])
         ))
 
-        self.connection.commit()
+        connection.commit()
+        connection.close()
         
     def get_alerts(self, limit=100):
-        cursor = self.connection.execute("""
+        connection = sqlite3.connect(self.path)
+        cursor = connection.execute("""
             SELECT id, timestamp, type, source, severity, details
             FROM alerts
             ORDER BY timestamp DESC
@@ -47,6 +52,7 @@ class Database:
     """, (limit,))
 
         rows = cursor.fetchall()
+        connection.close()
         return [
             {
                 "id": row[0],
@@ -58,12 +64,7 @@ class Database:
             }
             for row in rows
         ]
-    def close(self):
-        self.connection.close()
+    # def close(self):
+    #     self.connection.close()
 
-        
-if __name__ == "__main__":
-    db = Database()
-    alerts = db.get_alerts()
-    for alert in alerts:
-        print(alert)    
+ 
