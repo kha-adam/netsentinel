@@ -4,13 +4,14 @@ from netsentinel.connection_tracker import ConnectionTracker
 from netsentinel.detectors.port_scan import PortScanDetector
 from netsentinel.detectors.syn_flood import SynFloodDetector
 from netsentinel.alert_manager import AlertManager
+from netsentinel.database import Database
 
 
-
+database = Database()
 tracker = ConnectionTracker()
 port_scan_detector = PortScanDetector(timeframe=5, threshold=5)
 syn_detector = SynFloodDetector(tracker=tracker, timeframe=20, syn_rate_threshold=5, pending_threshold=5)
-alert_manager = AlertManager()
+alert_manager = AlertManager(database)
 
 
 def packet_callback(packet):

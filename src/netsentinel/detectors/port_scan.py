@@ -32,11 +32,14 @@ class PortScanDetector:
                     self.last_alert[source] = timestamp
                     
                     return {
+                        "timestamp": timestamp,
                         "type": "PORT_SCAN",
                         "source": source,
                         "severity": "HIGH",
-                        "ports": scanned_ports,
-                        "timeframe": self.timeframe
+                        "details": {
+                            "ports": list(scanned_ports),
+                            "timeframe": self.timeframe
+                        }
                     }
             
             return None

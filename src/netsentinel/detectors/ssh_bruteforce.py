@@ -30,11 +30,14 @@ class SSHBruteForceDetector:
                 if last_alert is None or timestamp - last_alert > self.alert_cooldown:
                     self.last_alert[source] = timestamp
                     return {
+                        "timestamp": timestamp,
                         "type": "SSH_BRUTEFORCE",
                         "source": source,
                         "severity": "HIGH",
-                        "failures_rate": failures_rate,
-                        "timeframe": self.timeframe
+                        "details": {
+                            "timeframe": self.timeframe,
+                            "failures_rate": failures_rate
+                        }
                     }
         return None
 

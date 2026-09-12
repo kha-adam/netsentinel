@@ -1,4 +1,3 @@
-from ..connection_tracker import ConnectionTracker 
 import time
 from scapy.all import TCP
 
@@ -39,12 +38,15 @@ class SynFloodDetector:
                 self.last_alert[source] = timestamp
 
                 return {
+                    "timestamp" : timestamp,
                     "type": "SYN_FLOOD",
                     "source": source,
                     "severity": "HIGH",
-                    "syn_rate": syn_rate,
-                    "pending": pending,
-                    "timeframe": self.timeframe
+                    "details": {
+                        "syn_rate": syn_rate,
+                        "pending": pending,
+                        "timeframe": self.timeframe     
+                    }
                 }
         return None
 
