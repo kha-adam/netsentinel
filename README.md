@@ -1,5 +1,11 @@
 # NetSentinel
 
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Flask](https://img.shields.io/badge/Flask-Web_App-black)
+![Scapy](https://img.shields.io/badge/Scapy-Network_Analysis-red)
+![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+
 A lightweight Network Security Monitoring and Intrusion Detection System built with Python and Scapy.
 
 NetSentinel captures and analyzes network traffic, tracks TCP connection states, detects suspicious behavior, stores security alerts in SQLite, and provides a Flask web dashboard for monitoring detected threats.
