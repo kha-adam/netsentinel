@@ -2,6 +2,9 @@
 __pycache__/
 *.py[codz]
 *$py.class
+.pytest_cache/
+*.py[cod]
+*.egg-info/
 
 # C extensions
 *.so
@@ -222,3 +225,5 @@ __marimo__/
 
 # IDE
 .vscode/
+
+data/

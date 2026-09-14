@@ -1,6 +1,7 @@
 import sqlite3
 import json
 import os
+import time
 from pathlib import Path
 
 class Database:
@@ -59,7 +60,7 @@ class Database:
         return [
             {
                 "id": row[0],
-                "timestamp": row[1],
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(row[1])),
                 "type": row[2],
                 "source": row[3],
                 "severity": row[4],
