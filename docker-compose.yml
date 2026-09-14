@@ -1,0 +1,11 @@
+services:
+  netsentinel:
+    build: .
+    ports:
+      - "5001:5000"
+    volumes:
+      - netsentinel-data:/app/data
+
+volumes:
+  netsentinel-data:
+    external: true

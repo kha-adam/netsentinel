@@ -1,5 +1,5 @@
 import time
-from scapy.all import TCP
+from scapy.all import TCP, IP
 
 class PortScanDetector:
     def __init__(self, timeframe=5, threshold=10):
@@ -10,8 +10,11 @@ class PortScanDetector:
         self.last_alert = {}
 
     def process(self, packet):
-        if packet.haslayer(TCP) and packet[TCP].flags == "S":
-            source = packet["IP"].src
+        if packet.haslayer(TCP) and packet.haslayer(IP) and packet[TCP].flags == "S":
+            ip_layer = packet.getlayer(IP)
+            if ip_layer is None:
+                return None
+            source = ip_layer.src
             port = packet["TCP"].dport
             timestamp = time.time()
 

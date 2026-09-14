@@ -3,7 +3,7 @@ from netsentinel.database import Database
 
 def create_app(database=None):
     app = Flask(__name__)
-    
+
     if database is None:
         database = Database()
 
@@ -22,4 +22,4 @@ def create_app(database=None):
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host = "0.0.0.0")

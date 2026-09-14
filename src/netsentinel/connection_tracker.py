@@ -1,4 +1,5 @@
 from collections import deque
+from scapy.all import TCP, IP
 import time
 import threading
 
@@ -19,6 +20,8 @@ class ConnectionTracker:
         timestamp = time.time()
 
         if packet.haslayer(TCP):
+            if not packet.haslayer(IP):
+                return
             source = packet["IP"].src
             dport = packet["TCP"].dport
             endpoint1 = (packet["IP"].src, packet["TCP"].sport)

@@ -1,5 +1,5 @@
 import time
-from scapy.all import TCP
+from scapy.all import TCP, IP
 
 class SynFloodDetector:
     def __init__(self, tracker, syn_rate_threshold = 10, pending_threshold = 10, timeframe = 60):
@@ -12,7 +12,7 @@ class SynFloodDetector:
         self.last_alert = {}
     
     def process(self, packet):
-        if not (packet.haslayer(TCP) and packet[TCP].flags == "S"):
+        if not (packet.haslayer(TCP) and packet.haslayer(IP) and packet[TCP].flags == "S"):
             return None
 
         timestamp = time.time()

@@ -1,10 +1,13 @@
 import sqlite3
 import json
+import os
+from pathlib import Path
 
 class Database:
-    def __init__(self, path="netsentinel.db"):
+    def __init__(self, path="data/netsentinel.db"):
         # self.connection = sqlite3.connect(path)
-        self.path = path
+        self.path = path or os.getenv("NETSENTINEL_DB", "data/netsentinel.db")
+        Path(self.path).parent.mkdir(parents=True, exist_ok=True)
         connection = sqlite3.connect(self.path)
         connection.execute("""
             CREATE TABLE IF NOT EXISTS alerts (
